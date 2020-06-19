@@ -13,3 +13,16 @@ spring:
     mode: HTML5
     cache: false
     order: 0
+  jpa:
+    open-in-view: false
+loggig:
+  level:
+    org:
+      hibernate:
+        SQL : DEBUG
+    app:
+      sample:
+        message:
+           AuditingFilter: DEBUG
+           SecurityChecker: DEBUG
+           MessageService: DEBUG

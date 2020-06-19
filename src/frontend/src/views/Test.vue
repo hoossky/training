@@ -10,16 +10,19 @@
         <input type="button" @click="increment()" value="increment"/>
         <input type="button" @click="decrement()" value="decrement"/>
         <input type="button" @click="randomNumber()" value="random"/>
-</div>
+    </div>
 </template>
 
 <script>
+    import Vue from 'vue'
+    import cookies from 'vue-cookies'
+    Vue.use(cookies)
     export default {
         data () {
             return {
                 cnt: 0,
                 count: 7,
-                message: 'Halo'
+                message: '안녕 난 뷰야 ~'
             }
         },
         methods: {
@@ -30,7 +33,7 @@
                 this.message = this.message.split('').reverse().join()
                 // $가 붙으면 Vue 내장 함수를 사용하겠다는 의미가 된다.
                 // 객체가 파괴되면 우리가 어떠한 요청을 넣어도 응답하지 않게 된다.
-                this.$destroy()
+                // this.$destroy()
             },
             increment: function () {
                 this.$store.commit('increment')
@@ -40,6 +43,8 @@
             },
             decrement: function () {
                 this.$store.commit('decrement')
+                this.$cookies.set('value', this.$store.state.count, '24h')
+                console.log(this.$cookies.get('value'))
             },
             randomNumber: function () {
                 this.$store.dispatch('generateRandomNumber')
@@ -51,6 +56,7 @@
             // alert('Before Create: ' + this.message)
         },
         created () {
+            this.$store.state.count = this.$cookies.get('value')
             // alert('Created: ' + this.message)
         },
         beforeMount () {
